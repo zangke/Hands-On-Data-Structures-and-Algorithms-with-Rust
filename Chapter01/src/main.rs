@@ -1,21 +1,21 @@
-//! 
+//!
 //! This crate was created to support Hands on Algorithms and Data Structures With Rust!
-//! 
+//!
 //! Chapter 1  
 //!
 
-use std::thread; 
-use std::sync::{Mutex, Arc};
-use std::sync::mpsc::{channel, Sender, Receiver};
-use std::rc::Rc;
 use std::cell::RefCell;
 use std::collections::HashMap;
+use std::rc::Rc;
+use std::sync::mpsc::{channel, Receiver, Sender};
+use std::sync::{Arc, Mutex};
+use std::thread;
 
 mod door;
 
 fn shared_state() {
     let v = Arc::new(Mutex::new(vec![]));
-    let  handles = (0..10).map(|i| {
+    let handles = (0..10).map(|i| {
         let numbers = Arc::clone(&v);
         thread::spawn(move || {
             let mut vector = numbers.lock().unwrap();
@@ -29,12 +29,12 @@ fn shared_state() {
     println!("{:?}", *v.lock().unwrap());
 }
 
-fn threading() { 
+fn threading() {
     let x = 10;
-    let handle = thread::spawn(move || { 
+    let handle = thread::spawn(move || {
         println!("Hello from a thread, the number is {}", x);
-    }); 
-    handle.join().unwrap(); 
+    });
+    handle.join().unwrap();
 }
 
 fn channels() {
@@ -43,26 +43,26 @@ fn channels() {
 
     let handles = (0..N).map(|i| {
         let _tx = tx.clone();
-        thread::spawn(move || { 
+        thread::spawn(move || {
             // don't use the result
-            let _ = _tx.send(i).unwrap(); 
+            let _ = _tx.send(i).unwrap();
         })
     });
     // close all threads
     for h in handles {
         h.join().unwrap();
     }
-    
+
     // receive N times
     let numbers: Vec<i32> = (0..N).map(|_| rx.recv().unwrap()).collect();
-    
+
     println!("{:?}", numbers);
 }
 
 #[derive(Debug, Clone)]
 struct FileName {
     name: Rc<String>,
-    ext: Rc<String>
+    ext: Rc<String>,
 }
 
 fn ref_counter() {
@@ -70,8 +70,11 @@ fn ref_counter() {
     let ext = Rc::new(String::from("rs"));
 
     for _ in 0..3 {
-       let f = FileName { name: name.clone(), ext: ext.clone() };
-       println!("{:?}", f);
+        let f = FileName {
+            name: name.clone(),
+            ext: ext.clone(),
+        };
+        println!("{:?}", f);
     }
 }
 

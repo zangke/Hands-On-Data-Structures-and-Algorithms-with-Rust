@@ -1,6 +1,3 @@
-
-
-
 # Hands-On Data Structures and Algorithms with Rust
 
 <a href="https://www.packtpub.com/application-development/hands-data-structures-and-algorithms-rust?utm_source=github&utm_medium=repository&utm_campaign=9781788995528 "><img src="https://d1ldz4te4covpm.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/B10269_cover.png" alt="Hands-On Data Structures and Algorithms with Rust" height="256px" align="right"></a>
